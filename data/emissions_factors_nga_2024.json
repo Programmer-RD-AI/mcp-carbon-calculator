@@ -1,0 +1,89 @@
+{
+  "electricity": {
+    "states": {
+      "New South Wales & ACT": {
+        "ef2_kg_per_kwh": 0.66,
+        "ef3_kg_per_kwh": 0.04
+      },
+      "Victoria": {
+        "ef2_kg_per_kwh": 0.77,
+        "ef3_kg_per_kwh": 0.09
+      },
+      "Queensland": {
+        "ef2_kg_per_kwh": 0.71,
+        "ef3_kg_per_kwh": 0.1
+      },
+      "South Australia": {
+        "ef2_kg_per_kwh": 0.23,
+        "ef3_kg_per_kwh": 0.05
+      },
+      "Western Australia – SWIS": {
+        "ef2_kg_per_kwh": 0.51,
+        "ef3_kg_per_kwh": 0.06
+      },
+      "Western Australia – NWIS": {
+        "ef2_kg_per_kwh": 0.61,
+        "ef3_kg_per_kwh": 0.09
+      },
+      "Tasmania": {
+        "ef2_kg_per_kwh": 0.15,
+        "ef3_kg_per_kwh": 0.03
+      },
+      "Northern Territory – DKIS": {
+        "ef2_kg_per_kwh": 0.56,
+        "ef3_kg_per_kwh": 0.07
+      }
+    },
+    "national_average": {
+      "ef2_kg_per_kwh": 0.63,
+      "ef3_kg_per_kwh": 0.07
+    }
+  },
+  "gas": {
+    "states": {
+      "New South Wales & ACT": {
+        "scope3_kg_per_gj": {
+          "metro": 13.1,
+          "non_metro": 14.0
+        }
+      },
+      "Victoria": {
+        "scope3_kg_per_gj": {
+          "metro": 4.0,
+          "non_metro": 4.0
+        }
+      },
+      "Queensland": {
+        "scope3_kg_per_gj": {
+          "metro": 8.8,
+          "non_metro": 7.9
+        }
+      },
+      "South Australia": {
+        "scope3_kg_per_gj": {
+          "metro": 10.7,
+          "non_metro": 10.6
+        }
+      },
+      "Western Australia": {
+        "scope3_kg_per_gj": {
+          "metro": 4.1,
+          "non_metro": 4.0
+        }
+      },
+      "Tasmania": {
+        "scope3_kg_per_gj": {
+          "metro": 4.0,
+          "non_metro": 4.0
+        }
+      },
+      "Northern Territory": {
+        "scope3_kg_per_gj": {
+          "metro": 4.1,
+          "non_metro": 4.0
+        }
+      }
+    },
+    "scope1_combined_kg_per_gj": 51.53
+  }
+}
