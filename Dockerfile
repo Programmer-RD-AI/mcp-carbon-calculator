@@ -18,5 +18,10 @@ COPY --from=builder --chown=app:app /app /app
 
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH"
+ENV MCP_TRANSPORT=http
+ENV HOST=0.0.0.0
+ENV PORT=8000
 
-CMD ["python", "src/main.py"]
+EXPOSE 8000
+
+CMD ["python", "-m", "src.main"]
