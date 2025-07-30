@@ -19,5 +19,5 @@ jobs:
             docker rm   mcp-carbon-calculator || true
             docker run -d \
               --name mcp-carbon-calculator \
-              -p 80:80 \
+              -p 6277:6277 \
               programmerrdai/mcp-carbon-calculator:latest
