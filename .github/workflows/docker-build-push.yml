@@ -1,4 +1,4 @@
-name: ci
+name: Push to Docker Hub
 
 on:
   push:
@@ -19,7 +19,6 @@ jobs:
       - name: Build & push image
         uses: docker/build-push-action@v6
         with:
-          context: .
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/mcp-carbon-calculator:latest
       - name: Dispatch Deploy
