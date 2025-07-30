@@ -60,14 +60,3 @@ class Gas(BaseModel):
 class EmissionFactors(BaseModel):
     electricity: Electricity
     gas: Gas
-
-    def for_state(self: Self, state: ElectricityState | GasState | str) -> dict:
-        try:
-            elec = self.electricity.get_factor(state)
-        except (ValueError, KeyError):
-            elec = None
-        try:
-            gas = self.gas.get_scope3(state)
-        except (ValueError, KeyError):
-            gas = None
-        return {"electricity": elec, "scope3_gas": gas}

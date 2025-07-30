@@ -1,9 +1,9 @@
 from typing import Any
 
+from calculator import calculate_electricity_emission, calculate_gas_emission
 from mcp.server.fastmcp import FastMCP
 
-from src.calculator import calculate_electricity_emission, calculate_gas_emission
-from src.data import get_emissions_factors
+from data import get_emissions_factors
 
 emission_factors = get_emissions_factors()
 mcp = FastMCP(

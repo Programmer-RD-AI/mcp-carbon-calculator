@@ -1,1 +1,0 @@
-CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH = "data/emissions_factors_nga_2024.json"
