@@ -24,7 +24,7 @@ jobs:
 
             docker run -d \
               --name mcp-carbon-calculator \
-              -p 6277:6277 \
+              -p 8000:8000 \
               programmerrdai/mcp-carbon-calculator:latest
 
             # give it a moment to start (and possibly crash)

@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from models import EmissionFactors
+from src.models import EmissionFactors
 
 
 @lru_cache

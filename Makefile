@@ -5,7 +5,7 @@ install:
 	uv sync
 
 run:
-	uv run mcp dev src/main.py
+	uv run python -m src.main
 
 lint:
 	uv run ruff check .
