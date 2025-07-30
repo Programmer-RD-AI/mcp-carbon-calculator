@@ -17,7 +17,7 @@ jobs:
             set -eux
 
             # pull the newest image
-            docker pull programmerrdai/mcp-carbon-calculator:latest
+            docker pull ${{ vars.DOCKERHUB_USERNAME }}/mcp-carbon-calculator:latest
 
             # kill & delete any old container (avoids name‑in‑use errors)
             docker rm -f mcp-carbon-calculator || true
