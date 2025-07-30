@@ -81,5 +81,9 @@ async def gas_emission_non_metro(giga_joules: float, gas_type: str) -> dict[str,
         return {"error": str(e)}
 
 
+# Expose the app for uvicorn
+app = mcp.get_app()
+
 if __name__ == "__main__":
-    mcp.run()
+    import uvicorn
+    uvicorn.run("src.main:app", host="0.0.0.0", port=6277)

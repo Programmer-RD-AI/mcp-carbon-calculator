@@ -10,7 +10,7 @@ load_dotenv()
 
 @lru_cache
 def get_emissions_factors(
-    path: str = None,
+    path: str | None = None,
 ) -> EmissionFactors:
     if path is None:
         path = os.getenv("CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH", "data/emissions_factors_nga_2024.json")

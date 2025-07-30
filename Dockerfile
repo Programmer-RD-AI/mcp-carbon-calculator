@@ -19,4 +19,4 @@ COPY --from=builder --chown=app:app /app /app
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH"
 
-CMD ["python", "src/main.py"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "6277"]
