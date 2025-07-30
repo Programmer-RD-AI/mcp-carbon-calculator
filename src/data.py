@@ -13,5 +13,7 @@ def get_emissions_factors(
     path: str | None = None,
 ) -> EmissionFactors:
     if path is None:
-        path = os.getenv("CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH", "data/emissions_factors_nga_2024.json")
+        app_root = os.path.dirname(os.path.abspath(__file__))
+        default_path = os.path.join(app_root, "data", "emissions_factors_nga_2024.json")
+        path = os.getenv("CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH", default_path)
     return load_emission_factors(path)
