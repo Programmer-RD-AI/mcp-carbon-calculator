@@ -5,9 +5,6 @@ install:
 	uv sync
 
 run:
-	uv run 
-
-run-dev:
 	uv run mcp dev src/main.py
 
 lint:

@@ -17,11 +17,11 @@
         "ef2_kg_per_kwh": 0.23,
         "ef3_kg_per_kwh": 0.05
       },
-      "Western Australia – SWIS": {
+      "Western Australia - SWIS": {
         "ef2_kg_per_kwh": 0.51,
         "ef3_kg_per_kwh": 0.06
       },
-      "Western Australia – NWIS": {
+      "Western Australia - NWIS": {
         "ef2_kg_per_kwh": 0.61,
         "ef3_kg_per_kwh": 0.09
       },
@@ -29,7 +29,7 @@
         "ef2_kg_per_kwh": 0.15,
         "ef3_kg_per_kwh": 0.03
       },
-      "Northern Territory – DKIS": {
+      "Northern Territory - DKIS": {
         "ef2_kg_per_kwh": 0.56,
         "ef3_kg_per_kwh": 0.07
       }

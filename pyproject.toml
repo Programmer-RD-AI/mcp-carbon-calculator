@@ -1,16 +1,13 @@
 [project]
 name = "mcp-carbon-calculator"
 version = "0.1.0"
-description = "Add your description here"
+description = "Advanced MCP server for computing CO₂e emissions from electricity and gas usage across Australia, with JSON-RPC integration for AI assistants"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastmcp>=2.10.2",
     "mcp[cli]>=1.10.1",
     "pydantic>=2.11.7",
-]
-
-[dependency-groups]
-dev = [
-    "pytest>=8.4.1",
+    "requests>=2.32.4",
+    "websockets>=15.0.1",
 ]
