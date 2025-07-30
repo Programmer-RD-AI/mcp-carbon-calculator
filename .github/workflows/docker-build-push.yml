@@ -25,6 +25,8 @@ jobs:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/mcp-carbon-calculator:latest
       - name: Dispatch Deploy
+        env:
+          GH_TOKEN: ${{secrets.GH_PAT}}
         run: gh workflow run deploy.yml --ref main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

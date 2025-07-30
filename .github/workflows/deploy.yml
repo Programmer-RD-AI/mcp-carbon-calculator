@@ -14,10 +14,22 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            set -eux
+
+            # pull the newest image
             docker pull programmerrdai/mcp-carbon-calculator:latest
-            docker stop mcp-carbon-calculator || true
-            docker rm   mcp-carbon-calculator || true
+
+            # kill & delete any old container (avoids name‑in‑use errors)
+            docker rm -f mcp-carbon-calculator || true
+
+            # run it mapping host 6277 → container 80
             docker run -d \
               --name mcp-carbon-calculator \
-              -p 6277:6277 \
+              -p 6277:80 \
               programmerrdai/mcp-carbon-calculator:latest
+
+            # give it a moment to start (and possibly crash)
+            sleep 5
+
+            # tail its logs so you can see errors in Actions output
+            docker logs mcp-carbon-calculator
