@@ -1,0 +1,34 @@
+name: Deploy to EC2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH & Update EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -eux
+
+            # pull the newest image
+            docker pull ${{ vars.DOCKERHUB_USERNAME }}/mcp-carbon-calculator:latest
+
+            # kill & delete any old container (avoids name‑in‑use errors)
+            docker rm -f mcp-carbon-calculator || true
+
+            docker run -d \
+              --name mcp-carbon-calculator \
+              -p 8000:8000 \
+              programmerrdai/mcp-carbon-calculator:latest
+
+            # give it a moment to start (and possibly crash)
+            sleep 5
+
+            # tail its logs so you can see errors in Actions output
+            docker logs mcp-carbon-calculator
