@@ -2,6 +2,7 @@ import os
 from functools import lru_cache
 
 from dotenv import load_dotenv
+
 from src.models import EmissionFactors
 from src.utils import load_emission_factors
 

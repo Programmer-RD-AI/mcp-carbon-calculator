@@ -1,8 +1,8 @@
 from typing import Any
 
-from src.calculator import calculate_electricity_emission, calculate_gas_emission
 from mcp.server.fastmcp import FastMCP
 
+from src.calculator import calculate_electricity_emission, calculate_gas_emission
 from src.data import get_emissions_factors
 
 emission_factors = get_emissions_factors()
@@ -83,6 +83,7 @@ async def gas_emission_non_metro(giga_joules: float, gas_type: str) -> dict[str,
 
 if __name__ == "__main__":
     import os
+
     # Use STDIO for MCP development, HTTP for web deployment
     transport = os.getenv("MCP_TRANSPORT", "stdio")
     if transport == "http":
