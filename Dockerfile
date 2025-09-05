@@ -14,10 +14,14 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 FROM python:3.13-slim-bookworm
 
+RUN groupadd --gid 1000 app && useradd --uid 1000 --gid app --shell /bin/bash --create-home app
+
 COPY --from=builder --chown=app:app /app /app
 
+USER app
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH"
+ENV PYTHONPATH="/app"
 ENV MCP_TRANSPORT=http
 ENV HOST=0.0.0.0
 ENV PORT=8000

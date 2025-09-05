@@ -1,3 +1,4 @@
+import os
 from typing import Any
 
 from mcp.server.fastmcp import FastMCP
@@ -6,10 +7,17 @@ from src.calculator import calculate_electricity_emission, calculate_gas_emissio
 from src.data import get_emissions_factors
 
 emission_factors = get_emissions_factors()
+
+host = os.getenv("HOST", "127.0.0.1")
+port = int(os.getenv("PORT", "8000"))
+
 mcp = FastMCP(
     name="MCP Carbon Calculator",
     instructions="Calculate the carbon footprint of your project using the MCP Carbon Calculator.",
     stateless_http=True,
+    json_response=True,
+    host=host,
+    port=port,
 )
 
 
@@ -81,19 +89,27 @@ async def gas_emission_non_metro(giga_joules: float, gas_type: str) -> dict[str,
         return {"error": str(e)}
 
 
-if __name__ == "__main__":
-    import os
+@mcp.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "ok", "service": "MCP Carbon Calculator"}
 
-    # Use STDIO for MCP development, HTTP for web deployment
+
+@mcp.get("/")
+async def root():
+    """Root endpoint with service information"""
+    return {
+        "service": "MCP Carbon Calculator", 
+        "status": "running",
+        "tools": ["electricity_emission", "gas_emission_metro", "gas_emission_non_metro"],
+        "transport": "streamable-http"
+    }
+
+
+if __name__ == "__main__":
     transport = os.getenv("MCP_TRANSPORT", "stdio")
     if transport == "http":
-        # Try to pass environment variables as kwargs
-        host = os.getenv("HOST", "127.0.0.1")
-        port = int(os.getenv("PORT", "8000"))
-        try:
-            mcp.run(transport="streamable-http", host=host, port=port)
-        except TypeError:
-            # If host/port not supported, just run with defaults
-            mcp.run(transport="streamable-http")
+        print(f"Starting MCP server on http://{host}:{port}")
+        mcp.run(transport="streamable-http", host=host, port=port)
     else:
         mcp.run()

@@ -1,34 +1,48 @@
-name: Deploy to EC2
+name: Deploy to AWS
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
-      - name: SSH & Update EC2
-        uses: appleboy/ssh-action@v0.1.7
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -eux
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: arn:aws:iam::533266956806:role/MCP-Carbon-Calculator-Github-Action
 
-            # pull the newest image
-            docker pull ${{ vars.DOCKERHUB_USERNAME }}/mcp-carbon-calculator:latest
+      - name: Install AWS Copilot CLI
+        uses: ksivamuthu/aws-copilot-github-action@v0.0.8
+        with:
+          command: install
 
-            # kill & delete any old container (avoids name‑in‑use errors)
-            docker rm -f mcp-carbon-calculator || true
+      - name: Deploy with Copilot
+        uses: ksivamuthu/aws-copilot-github-action@v0.0.8
+        with:
+          command: deploy
+          app: mcp-carbon-calculator
+          env: dev
+          name: mcp-carbon-calc
 
-            docker run -d \
-              --name mcp-carbon-calculator \
-              -p 8000:8000 \
-              programmerrdai/mcp-carbon-calculator:latest
-
-            # give it a moment to start (and possibly crash)
-            sleep 5
-
-            # tail its logs so you can see errors in Actions output
-            docker logs mcp-carbon-calculator
+      - name: Get service URL
+        run: |
+          export AWS_REGION=${{ env.AWS_REGION }}
+          copilot svc show --name mcp-carbon-calc --env dev

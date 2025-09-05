@@ -1,0 +1,14 @@
+name: mcp-carbon-calc
+type: Request-Driven Web Service
+
+image:
+  build: Dockerfile
+  port: 8000
+
+cpu: 512
+memory: 1024
+
+variables:
+  MCP_TRANSPORT: http
+  HOST: 0.0.0.0
+  PORT: 8000
