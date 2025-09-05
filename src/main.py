@@ -89,27 +89,12 @@ async def gas_emission_non_metro(giga_joules: float, gas_type: str) -> dict[str,
         return {"error": str(e)}
 
 
-@mcp.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "ok", "service": "MCP Carbon Calculator"}
-
-
-@mcp.get("/")
-async def root():
-    """Root endpoint with service information"""
-    return {
-        "service": "MCP Carbon Calculator", 
-        "status": "running",
-        "tools": ["electricity_emission", "gas_emission_metro", "gas_emission_non_metro"],
-        "transport": "streamable-http"
-    }
 
 
 if __name__ == "__main__":
     transport = os.getenv("MCP_TRANSPORT", "stdio")
     if transport == "http":
         print(f"Starting MCP server on http://{host}:{port}")
-        mcp.run(transport="streamable-http", host=host, port=port)
+        mcp.run(transport="streamable-http")
     else:
         mcp.run()
