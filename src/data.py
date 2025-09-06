@@ -1,15 +1,27 @@
 import os
-from functools import lru_cache
 
 from dotenv import load_dotenv
-from models import EmissionFactors
-from utils import load_emission_factors
+
+from src.models import EmissionFactors
+from src.utils import load_emission_factors
 
 load_dotenv()
 
+_cached_emission_factors: EmissionFactors | None = None
 
-@lru_cache
+
 def get_emissions_factors(
-    path: str = os.getenv("CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH"),
+    path: str | None = None,
 ) -> EmissionFactors:
-    return load_emission_factors(path)
+    global _cached_emission_factors
+
+    if _cached_emission_factors is not None:
+        return _cached_emission_factors
+
+    if path is None:
+        app_root = os.path.dirname(os.path.abspath(__file__))
+        default_path = os.path.join(app_root, "data", "emissions_factors_nga_2024.json")
+        path = os.getenv("CURRENT_EMISSION_FACTOR_CONFIG_FILE_PATH", default_path)
+
+    _cached_emission_factors = load_emission_factors(path)
+    return _cached_emission_factors

@@ -5,9 +5,9 @@ description = "Advanced MCP server for computing CO₂e emissions from electrici
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastmcp>=2.10.2",
     "mcp[cli]>=1.10.1",
     "pydantic>=2.11.7",
     "requests>=2.32.4",
     "websockets>=15.0.1",
+    "uvicorn>=0.32.1",
 ]

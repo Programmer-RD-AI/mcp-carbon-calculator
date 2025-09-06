@@ -5,7 +5,7 @@ install:
 	uv sync
 
 run:
-	uv run mcp dev src/main.py
+	uv run python -m src.main
 
 lint:
 	uv run ruff check .
@@ -19,4 +19,14 @@ clean:
 	rm -rf .pytest_cache .ruff_cache .mypy_cache build dist *.egg-info .coverage htmlcov *.log out/
 
 build:
-	docker build -t $(PACKAGE_NAME) .	
+	docker build -t $(PACKAGE_NAME) .
+
+# AWS Copilot commands
+copilot-deploy:
+	copilot svc deploy --env dev
+
+copilot-status:
+	copilot svc show
+
+copilot-logs:
+	copilot svc logs --name mcp-carbon-calc --env dev	

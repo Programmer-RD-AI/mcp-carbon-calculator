@@ -1,15 +1,23 @@
+import os
 from typing import Any
 
-from calculator import calculate_electricity_emission, calculate_gas_emission
 from mcp.server.fastmcp import FastMCP
 
-from data import get_emissions_factors
+from src.calculator import calculate_electricity_emission, calculate_gas_emission
+from src.data import get_emissions_factors
 
 emission_factors = get_emissions_factors()
+
+host = os.getenv("HOST", "127.0.0.1")
+port = int(os.getenv("PORT", "8000"))
+
 mcp = FastMCP(
     name="MCP Carbon Calculator",
     instructions="Calculate the carbon footprint of your project using the MCP Carbon Calculator.",
     stateless_http=True,
+    json_response=True,
+    host=host,
+    port=port,
 )
 
 
@@ -81,5 +89,12 @@ async def gas_emission_non_metro(giga_joules: float, gas_type: str) -> dict[str,
         return {"error": str(e)}
 
 
+
+
 if __name__ == "__main__":
-    mcp.run()
+    transport = os.getenv("MCP_TRANSPORT", "stdio")
+    if transport == "http":
+        print(f"Starting MCP server on http://{host}:{port}")
+        mcp.run(transport="streamable-http")
+    else:
+        mcp.run()
