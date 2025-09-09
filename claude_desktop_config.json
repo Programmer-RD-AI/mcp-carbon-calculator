@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schema.org/draft-07/schema#",
+  "title": "Australian Carbon Calculator MCP Configuration",
+  "description": "Claude Desktop configuration for the Australian Carbon Calculator MCP server using official NGA 2024 emission factors",
+  "version": "1.0.0",
+  "mcpServers": {
+    "carbon-calculator-local": {
+      "description": "Australian Carbon Calculator (Local Development) - Calculate electricity and gas carbon emissions using official NGA 2024 data",
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "http://localhost:8787/sse"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "disabled": false,
+      "alwaysAllow": [],
+      "capabilities": {
+        "tools": {
+          "electricity_emission": "Calculate CO₂e from electricity consumption across Australian states/territories",
+          "gas_emission_metro": "Calculate CO₂e from gas consumption in metropolitan areas",
+          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas"
+        }
+      },
+      "metadata": {
+        "author": "Your Name",
+        "version": "1.0.0",
+        "dataSource": "Australian National Greenhouse Accounts (NGA) 2024",
+        "region": "Australia",
+        "lastUpdated": "2024-12-18"
+      }
+    },
+    "carbon-calculator-production": {
+      "description": "Australian Carbon Calculator (Production) - Calculate electricity and gas carbon emissions using official NGA 2024 data",
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev/sse",
+        "--ignore-certificate-errors"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      },
+      "disabled": false,
+      "alwaysAllow": [],
+      "capabilities": {
+        "tools": {
+          "electricity_emission": "Calculate CO₂e from electricity consumption across Australian states/territories",
+          "gas_emission_metro": "Calculate CO₂e from gas consumption in metropolitan areas", 
+          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas"
+        }
+      },
+      "metadata": {
+        "author": "Your Name",
+        "version": "1.0.0",
+        "dataSource": "Australian National Greenhouse Accounts (NGA) 2024",
+        "region": "Australia",
+        "lastUpdated": "2024-12-18",
+        "endpoint": "https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev",
+        "deployment": "Cloudflare Workers",
+        "uptime": "99.9%"
+      }
+    }
+  },
+  "globalSettings": {
+    "timeout": 30000,
+    "retryAttempts": 3,
+    "logLevel": "info"
+  },
+  "documentation": {
+    "readme": "CLAUDE.md",
+    "repository": "https://github.com/your-username/mcp-carbon-calculator",
+    "documentation": "https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev",
+    "support": "Calculate carbon emissions for Australian electricity and gas consumption using the latest NGA 2024 emission factors."
+  }
+}

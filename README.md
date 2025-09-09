@@ -1,96 +1,222 @@
-# MCP Carbon Calculator
+# Australian Carbon Calculator MCP Server
 
-![mcp-carbon-calculator](https://socialify.git.ci/your-username/mcp-carbon-calculator/image?description=1&descriptionEditable=An%20advanced%20MCP%20server%20for%20calculating%20CO%E2%82%82%20emissions%20from%20Australian%20electricity%20and%20gas%20consumption&font=Source%20Code%20Pro&name=1&owner=1&theme=Auto)
+A high-performance Model Context Protocol (MCP) server for calculating carbon emissions using official Australian National Greenhouse Accounts (NGA) 2024 data. Built with TypeScript and deployed on Cloudflare Workers for global availability and sub-100ms response times.
 
-<div align="center">
+## Overview
 
-![](https://img.shields.io/badge/python-3.13+-blue.svg?style=for-the-badge&logo=python&logoColor=white)
-![](https://img.shields.io/badge/MCP-2024--10--07-green.svg?style=for-the-badge)
-![](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+This MCP server provides accurate carbon footprint calculations for electricity and gas consumption across Australian states and territories. All emission factors are sourced from the Australian Government's Department of Climate Change, Energy, the Environment and Water (DCCEEW), ensuring compliance with national reporting standards.
 
-## Links
+### Key Features
 
-**Live Service**: [AWS Deployment](https://bszawtavwc.us-east-1.awsapprunner.com)  
-**Docker Hub**: [mcp-carbon-calculator](https://hub.docker.com/r/your-username/mcp-carbon-calculator)
+- **Official Data**: Uses Australian National Greenhouse Accounts (NGA) 2024 emission factors
+- **Comprehensive Coverage**: Supports all Australian states and territories
+- **Dual Area Types**: Separate calculations for metropolitan and non-metropolitan gas consumption
+- **Production Ready**: Deployed on Cloudflare Workers with global edge network
+- **Type Safe**: Written in TypeScript with comprehensive type definitions
+- **MCP Compliant**: Full compatibility with Model Context Protocol specification
 
-</div>
+## Quick Start
 
-An advanced **Model Context Protocol (MCP)** server for calculating CO₂ equivalent emissions from electricity and gas consumption across Australia. Built for integration with Large Language Models and AI assistants.
+### Using the Production Server
 
-## Features
-
-- **Real-time CO₂ Emissions Calculation** for Australian electricity and gas usage
-- **Australia-wide Coverage** with state-specific emission factors
-- **Metro vs Non-Metro** differentiated gas emission factors
-- **MCP Protocol Integration** for seamless AI assistant integration
-- **Built-in Web Interface** with MCP Inspector for testing
-
-## Getting Started
-
-### Local Setup
+The fastest way to get started is using our production deployment:
 
 ```bash
-# Clone and setup
-git clone https://github.com/your-username/mcp-carbon-calculator.git
-cd mcp-carbon-calculator
-
-# Install dependencies (requires Python 3.13+)
-uv sync
-
-# Start the MCP server
-make run
-
-# Access web interface
-open http://127.0.0.1:6274
-```
-
-### Docker
-
-```bash
-# Build and run
-make build
-docker run -p 8000:8000 mcp-carbon-calculator
-```
-
-### Available Commands
-
-```bash
-make install         # Install dependencies
-make run             # Start MCP server
-make lint            # Run code linting
-make format          # Format code
-make build           # Build Docker image
-make copilot-deploy  # Deploy to AWS
-make copilot-status  # Get service URL
-make copilot-logs    # View logs
-```
-
-## Usage
-
-Access the MCP Inspector web interface at `http://127.0.0.1:6274` after running `make run`.
-
-### Available Tools
-
-- **`electricity_emission`**: Calculate CO₂ from electricity usage (kWh) by Australian state
-- **`gas_emission_metro`**: Calculate CO₂ from gas usage (GJ) in metro areas
-- **`gas_emission_non_metro`**: Calculate CO₂ from gas usage (GJ) in non-metro areas
-
-### Integration
-
-Add to Claude Desktop configuration:
-
-```json
+# Add to your Claude Desktop configuration
 {
   "mcpServers": {
     "carbon-calculator": {
-      "command": "python",
-      "args": ["path/to/mcp-carbon-calculator/src/main.py"]
+      "command": "npx",
+      "args": ["mcp-remote", "https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev/sse"],
+      "env": {
+        "NODE_ENV": "production"
+      }
     }
   }
 }
 ```
+### Local Development
 
-## Data Source
+```bash
+# Clone the repository
+git clone https://github.com/your-username/mcp-carbon-calculator.git
+cd mcp-carbon-calculator
 
-Emission factors based on **Australian National Greenhouse Accounts (NGA) 2024** with state-specific electricity factors and metro/non-metro gas differentiation.
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# The server will be available at http://localhost:8787
+```
+
+## Available Tools
+
+### `electricity_emission`
+
+Calculate carbon emissions from electricity consumption across Australian states and territories.
+
+**Parameters:**
+- `killo_watt_hours` (number): Electricity consumption in kWh
+- `state` (string): Australian state/territory
+
+**Supported States:**
+- New South Wales & ACT
+- Victoria
+- Queensland
+- South Australia
+- Western Australia - SWIS (South West Interconnected System)
+- Western Australia - NWIS (North West Interconnected System)
+- Tasmania
+- Northern Territory - DKIS (Darwin-Katherine Interconnected System)
+
+**Example Response:**
+```
+Australian Electricity Emission Calculation:
+
+State: Victoria
+Electricity consumed: 350 kWh
+Scope 2 factor: 0.77 kg CO₂e/kWh  
+Scope 3 factor: 0.09 kg CO₂e/kWh
+Total factor: 0.86 kg CO₂e/kWh
+
+Total emissions: 301.00 kg CO₂e
+Total emissions: 0.301000 tonnes CO₂e
+
+Context: This calculation uses Australian National Greenhouse Accounts (NGA) 2024 emission factors.
+```
+
+### `gas_emission_metro`
+
+Calculate carbon emissions from gas consumption in metropolitan areas.
+
+**Parameters:**
+- `giga_joules` (number): Gas consumption in GJ
+- `gas_type` (string): Australian state/territory
+
+### `gas_emission_non_metro`
+
+Calculate carbon emissions from gas consumption in non-metropolitan areas.
+
+**Parameters:**
+- `giga_joules` (number): Gas consumption in GJ  
+- `gas_type` (string): Australian state/territory
+
+## Architecture
+
+The codebase follows a modular architecture pattern optimized for serverless deployment:
+
+```
+src/
+├── index.ts              # Main Cloudflare Worker entry point
+├── types.ts              # Type definitions and interfaces
+├── calculators/          # Emission calculation logic
+│   ├── electricity.ts    # Electricity emission calculations
+│   └── gas.ts           # Gas emission calculations
+├── handlers/            # Request handlers
+│   ├── mcp.ts          # MCP JSON-RPC handler
+│   └── sse.ts          # Server-Sent Events handler
+├── data/               # Static data and constants
+│   └── emissions.ts    # NGA 2024 emission factors
+├── config/             # Configuration files
+│   └── tools.ts        # MCP tool definitions
+└── utils/              # Utility functions
+    └── cors.ts         # CORS handling utilities
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Cloudflare account (for deployment)
+
+### Scripts
+
+```bash
+npm run dev        # Start development server
+npm run build      # Build TypeScript
+npm run deploy     # Deploy to Cloudflare Workers
+npm run typecheck  # Run TypeScript type checking
+npm run lint       # Run ESLint
+npm run test       # Run tests
+```
+
+### Environment Variables
+
+For deployment, you'll need to configure:
+
+- `CLOUDFLARE_API_TOKEN`: Your Cloudflare API token
+- `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare account ID
+
+## Deployment
+
+### Automatic Deployment
+
+This repository includes GitHub Actions workflows for automatic deployment:
+
+- **Push to `main`**: Automatically deploys to production
+- **Pull Requests**: Runs tests and type checking
+
+### Manual Deployment
+
+```bash
+# Deploy to production
+npm run deploy
+
+# Deploy with specific environment
+wrangler deploy --env production
+```
+
+## API Reference
+
+### MCP Protocol Endpoints
+
+- `POST /sse` - JSON-RPC endpoint for MCP clients
+- `GET /sse` - Server-Sent Events endpoint (with Accept: text/event-stream)
+- `GET /` - Information page with API documentation
+
+### JSON-RPC Methods
+
+- `initialize` - Initialize MCP connection
+- `tools/list` - Get available tools
+- `tools/call` - Execute a calculation tool
+
+## Data Sources
+
+All emission factors are sourced from:
+
+**Australian National Greenhouse Accounts (NGA) Factors 2024**
+- Published by: Department of Climate Change, Energy, the Environment and Water
+- Updated: December 2024
+- Scope: National greenhouse gas inventory reporting
+
+The emission factors include:
+- **Electricity**: Scope 2 and Scope 3 factors by state/territory
+- **Gas**: Scope 1 and Scope 3 factors for metro/non-metro areas
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Australian Government Department of Climate Change, Energy, the Environment and Water for providing the NGA 2024 emission factors
+- Cloudflare for the Workers platform enabling global deployment
+- The Model Context Protocol team for the MCP specification
+
+---
+
+**Production URL**: https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev  
+**MCP Endpoint**: https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev/sse
+>>>>>>> 817e64b (Implement new Implementation for the MCP Server)

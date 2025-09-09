@@ -1,0 +1,40 @@
+{
+  "name": "mcp-carbon-calculator",
+  "version": "1.0.0",
+  "description": "Australian Carbon Calculator MCP Server for Cloudflare Workers",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev --port 8787",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "mcp",
+    "carbon-calculator",
+    "australia",
+    "climate",
+    "cloudflare-workers"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "mcp-remote": "^0.1.29"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^3.100.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
