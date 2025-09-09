@@ -205,10 +205,6 @@ The emission factors include:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Australian Government Department of Climate Change, Energy, the Environment and Water for providing the NGA 2024 emission factors
@@ -219,4 +215,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Production URL**: https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev  
 **MCP Endpoint**: https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev/sse
->>>>>>> 817e64b (Implement new Implementation for the MCP Server)
