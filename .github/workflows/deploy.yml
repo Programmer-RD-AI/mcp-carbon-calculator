@@ -1,48 +1,30 @@
-name: Deploy to AWS
+name: Deploy to Cloudflare Workers
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions:
-  id-token: write
-  contents: read
-
-env:
-  AWS_REGION: us-east-1
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-
+    name: Deploy
     steps:
       - uses: actions/checkout@v4
-
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: arn:aws:iam::533266956806:role/MCP-Carbon-Calculator-Github-Action
-
-      - name: Install AWS Copilot CLI
-        uses: ksivamuthu/aws-copilot-github-action@v0.0.8
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run type check
+        run: npm run typecheck
+      
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
         with:
-          command: install
-
-      - name: Deploy with Copilot
-        uses: ksivamuthu/aws-copilot-github-action@v0.0.8
-        with:
-          command: deploy
-          app: mcp-carbon-calculator
-          env: dev
-          name: mcp-carbon-calc
-
-      - name: Get service URL
-        run: |
-          export AWS_REGION=${{ env.AWS_REGION }}
-          copilot svc show --name mcp-carbon-calc --env dev
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
