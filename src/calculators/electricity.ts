@@ -11,7 +11,7 @@ import type { ElectricityEmissionArgs, MCPResponse } from '../types';
  * @returns MCP-formatted response with emission calculation results
  */
 export function calculateElectricityEmission(args: ElectricityEmissionArgs): MCPResponse {
-  const { killo_watt_hours, state } = args;
+  const { kilo_watt_hours, state } = args;
 
   const stateData = EMISSION_FACTORS.electricity.states[
     state as keyof typeof EMISSION_FACTORS.electricity.states
@@ -23,14 +23,14 @@ export function calculateElectricityEmission(args: ElectricityEmissionArgs): MCP
   }
 
   const totalEmissionFactor = stateData.ef2_kg_per_kwh + stateData.ef3_kg_per_kwh;
-  const totalEmissionKg = killo_watt_hours * totalEmissionFactor;
+  const totalEmissionKg = kilo_watt_hours * totalEmissionFactor;
 
   return {
     content: [{
       type: 'text',
       text: `Australian Electricity Emission Calculation:
       State: ${state}
-      Electricity consumed: ${killo_watt_hours} kWh
+      Electricity consumed: ${kilo_watt_hours} kWh
       Scope 2 factor: ${stateData.ef2_kg_per_kwh} kg CO₂e/kWh  
       Scope 3 factor: ${stateData.ef3_kg_per_kwh} kg CO₂e/kWh
       Total factor: ${totalEmissionFactor} kg CO₂e/kWh

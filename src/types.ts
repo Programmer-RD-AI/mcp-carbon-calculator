@@ -3,11 +3,11 @@ export interface Env {
 }
 
 export interface EmissionsEquivalenciesArgs {
-  killo_watts: number;
+  kilo_watts: number;
 }
 
 export interface ElectricityEmissionArgs {
-  killo_watt_hours: number;
+  kilo_watt_hours: number;
   state: string;
 }
 

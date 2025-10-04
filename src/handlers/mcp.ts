@@ -2,7 +2,7 @@ import type { JSONRPCRequest, JSONRPCResponse, Env } from '../types';
 import { calculateElectricityEmission } from '../calculators/electricity';
 import { calculateGasEmissionMetro, calculateGasEmissionNonMetro } from '../calculators/gas';
 import { MCP_TOOLS } from '../config/tools';
-import { calculateEmissionEquivanlencies } from '../calculators/equivalencies';
+import { calculateEmissionEquivalencies } from '../calculators/equivalencies';
 
 /**
  * Handle MCP JSON-RPC requests
@@ -106,8 +106,8 @@ async function callTool(name: string, args: any): Promise<any> {
     case 'gas_emission_non_metro':
       return calculateGasEmissionNonMetro(args);
 
-    case 'emisssions_equivalencies':
-      return calculateEmissionEquivanlencies(args);
+    case 'emissions_equivalencies':
+      return calculateEmissionEquivalencies(args);
 
     default:
       throw new Error(`Unknown tool: ${name}`);

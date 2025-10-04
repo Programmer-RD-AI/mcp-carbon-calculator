@@ -20,15 +20,12 @@
         "tools": {
           "electricity_emission": "Calculate CO₂e from electricity consumption across Australian states/territories",
           "gas_emission_metro": "Calculate CO₂e from gas consumption in metropolitan areas",
-          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas"
+          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas",
+          "emissions_equivalencies": "Calculate carbon equivalencies for a given kilowatt-hour value."
         }
       },
       "metadata": {
-        "author": "Your Name",
-        "version": "1.0.0",
-        "dataSource": "Australian National Greenhouse Accounts (NGA) 2024",
-        "region": "Australia",
-        "lastUpdated": "2024-12-18"
+        "lastUpdated": "2025-10-05"
       }
     },
     "carbon-calculator-production": {
@@ -49,15 +46,16 @@
         "tools": {
           "electricity_emission": "Calculate CO₂e from electricity consumption across Australian states/territories",
           "gas_emission_metro": "Calculate CO₂e from gas consumption in metropolitan areas", 
-          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas"
+          "gas_emission_non_metro": "Calculate CO₂e from gas consumption in non-metropolitan areas",
+          "emissions_equivalencies": "Calculate carbon equivalencies for a given kilowatt-hour value."
         }
       },
       "metadata": {
-        "author": "Your Name",
+        "author": "Ranuga",
         "version": "1.0.0",
         "dataSource": "Australian National Greenhouse Accounts (NGA) 2024",
         "region": "Australia",
-        "lastUpdated": "2024-12-18",
+        "lastUpdated": "2025-10-05",
         "endpoint": "https://mcp-carbon-calculator.mcp-carbon-calculator.workers.dev",
         "deployment": "Cloudflare Workers",
         "uptime": "99.9%"

@@ -58,7 +58,7 @@ npm run dev
 Calculate carbon emissions from electricity consumption across Australian states and territories.
 
 **Parameters:**
-- `killo_watt_hours` (number): Electricity consumption in kWh
+- `kilo_watt_hours` (number): Electricity consumption in kWh
 - `state` (string): Australian state/territory
 
 **Supported States:**

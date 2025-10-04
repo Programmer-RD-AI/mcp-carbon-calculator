@@ -16,7 +16,7 @@ import { handleCORSPreflight } from './utils/cors';
  * Routes incoming requests to appropriate handlers based on the URL path.
  */
 export default {
-  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, _env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     // Handle CORS preflight requests
@@ -82,7 +82,7 @@ function generateInfoPage(url: URL): string {
       <small>Higher emission factors for regional distribution</small>
     </div>
     <div class="tool">
-      <div class="tool-name">emisssions_equivalencies</div>
+      <div class="tool-name">emissions_equivalencies</div>
       <p>Calculate carbon equivalencies for a given kilowatt-hour value.</p>
       <small>Higher emission factors for regional distribution</small>
     </div>

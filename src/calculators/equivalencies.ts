@@ -11,9 +11,9 @@ function computeEquivalencies(
                 kmDrivenEquivalent: kgCO2 / cfg.kgCO2PerKmCar,
         };
 }
-export function calculateEmissionEquivanlencies(args: EmissionsEquivalenciesArgs): MCPResponse {
-        const { killo_watts } = args;
-        const carbonEquivalencies = computeEquivalencies(killo_watts, EMISSIONS_EQUIVALENCIES)
+export function calculateEmissionEquivalencies(args: EmissionsEquivalenciesArgs): MCPResponse {
+        const { kilo_watts } = args;
+        const carbonEquivalencies = computeEquivalencies(kilo_watts, EMISSIONS_EQUIVALENCIES)
         return {
                 content: [{
                         type: 'text',

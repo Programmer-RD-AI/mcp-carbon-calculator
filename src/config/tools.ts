@@ -12,7 +12,7 @@ export const MCP_TOOLS = [
     inputSchema: {
       type: 'object',
       properties: {
-        killo_watt_hours: {
+        kilo_watt_hours: {
           type: 'number',
           description: 'Amount of electricity consumed in kilowatt hours',
         },
@@ -31,7 +31,7 @@ export const MCP_TOOLS = [
           ],
         },
       },
-      required: ['killo_watt_hours', 'state'],
+      required: ['kilo_watt_hours', 'state'],
     },
   },
   {
@@ -89,17 +89,17 @@ export const MCP_TOOLS = [
     },
   },
   {
-    name: 'emisssions_equivalencies',
+    name: 'emissions_equivalencies',
     description: 'Calculate carbon equivalencies for a given kilowatt-hour value.',
     inputSchema: {
       type: 'object',
       properties: {
-        killo_watts: {
+        kilo_watts: {
           type: 'number',
-          description: 'Amount of electricity consumed in killo-watts',
+          description: 'Amount of electricity consumed in kilo-watts',
         },
       },
-      required: ['killo_watts'],
+      required: ['kilo_watts'],
     },
   },
 ] as const;
