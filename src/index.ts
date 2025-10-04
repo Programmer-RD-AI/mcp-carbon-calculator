@@ -9,7 +9,6 @@
 
 import type { Env } from './types';
 import { handleCORSPreflight } from './utils/cors';
-import { handleSSE } from './handlers/sse';
 
 /**
  * Main Cloudflare Worker handler
@@ -19,20 +18,15 @@ import { handleSSE } from './handlers/sse';
 export default {
   async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    
+
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return handleCORSPreflight();
     }
 
-    // MCP endpoint - handles both SSE and JSON-RPC
-    if (url.pathname === '/sse') {
-      return handleSSE(request, env);
-    }
-
     // Root endpoint - information page
     return new Response(generateInfoPage(url), {
-      headers: { 
+      headers: {
         'Content-Type': 'text/html',
         'Cache-Control': 'public, max-age=3600',
       },
