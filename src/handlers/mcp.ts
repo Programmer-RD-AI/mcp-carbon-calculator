@@ -2,6 +2,7 @@ import type { JSONRPCRequest, JSONRPCResponse, Env } from '../types';
 import { calculateElectricityEmission } from '../calculators/electricity';
 import { calculateGasEmissionMetro, calculateGasEmissionNonMetro } from '../calculators/gas';
 import { MCP_TOOLS } from '../config/tools';
+import { calculateEmissionEquivanlencies } from '../calculators/equivalencies';
 
 /**
  * Handle MCP JSON-RPC requests
@@ -60,7 +61,7 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
 
   } catch (error) {
     console.error('MCP server error:', error);
-    
+
     let requestId = null;
     try {
       const clonedRequest = request.clone();
@@ -69,7 +70,7 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
     } catch (e) {
       // Ignore errors getting request ID
     }
-    
+
     const errorResponse: JSONRPCResponse = {
       jsonrpc: '2.0',
       id: requestId || 0,
@@ -98,13 +99,16 @@ async function callTool(name: string, args: any): Promise<any> {
   switch (name) {
     case 'electricity_emission':
       return calculateElectricityEmission(args);
-    
+
     case 'gas_emission_metro':
       return calculateGasEmissionMetro(args);
-    
+
     case 'gas_emission_non_metro':
       return calculateGasEmissionNonMetro(args);
-    
+
+    case 'emisssions_equivalencies':
+      return calculateEmissionEquivanlencies(args);
+
     default:
       throw new Error(`Unknown tool: ${name}`);
   }

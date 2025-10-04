@@ -88,4 +88,18 @@ export const MCP_TOOLS = [
       required: ['giga_joules', 'gas_type'],
     },
   },
+  {
+    name: 'emisssions_equivalencies',
+    description: 'Calculate carbon equivalencies for a given kilowatt-hour value.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        killo_watts: {
+          type: 'number',
+          description: 'Amount of electricity consumed in killo-watts',
+        },
+      },
+      required: ['killo_watts'],
+    },
+  },
 ] as const;

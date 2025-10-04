@@ -81,6 +81,11 @@ function generateInfoPage(url: URL): string {
       <p>Calculate carbon emissions from gas consumption in non-metropolitan areas</p>
       <small>Higher emission factors for regional distribution</small>
     </div>
+    <div class="tool">
+      <div class="tool-name">emisssions_equivalencies</div>
+      <p>Calculate carbon equivalencies for a given kilowatt-hour value.</p>
+      <small>Higher emission factors for regional distribution</small>
+    </div>
   </div>
 
   <h2>Data Source</h2>

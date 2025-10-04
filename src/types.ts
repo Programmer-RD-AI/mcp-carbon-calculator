@@ -2,6 +2,10 @@ export interface Env {
   ENVIRONMENT?: string;
 }
 
+export interface EmissionsEquivalenciesArgs {
+  killo_watts: number;
+}
+
 export interface ElectricityEmissionArgs {
   killo_watt_hours: number;
   state: string;
@@ -36,9 +40,9 @@ export interface JSONRPCResponse {
   };
 }
 
-export type AustralianState = 
+export type AustralianState =
   | 'New South Wales & ACT'
-  | 'Victoria' 
+  | 'Victoria'
   | 'Queensland'
   | 'South Australia'
   | 'Western Australia - SWIS'
@@ -46,11 +50,27 @@ export type AustralianState =
   | 'Tasmania'
   | 'Northern Territory - DKIS';
 
-export type GasState = 
+export type GasState =
   | 'New South Wales & ACT'
   | 'Victoria'
-  | 'Queensland' 
+  | 'Queensland'
   | 'South Australia'
   | 'Western Australia'
   | 'Tasmania'
   | 'Northern Territory';
+
+export interface CarbonEquivalencyConfig {
+  kgCO2PerKWh: number;
+  kgCO2PerGJ: number;
+  kgCO2PerTreePerYear: number;
+  kgCO2PerHomeYear: number;
+  kgCO2PerCarYear: number;
+  kgCO2PerKmCar: number;
+}
+
+export interface CarbonEquivalencyResult {
+  treesEquivalent: number;
+  homesEquivalent: number;
+  carsEquivalent: number;
+  kmDrivenEquivalent: number;
+}
