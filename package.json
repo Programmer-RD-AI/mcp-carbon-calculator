@@ -11,7 +11,8 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "prepare": "husky"
   },
   "keywords": [
     "mcp",
@@ -31,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
+    "husky": "^9.1.7",
     "typescript": "^5.7.2",
     "wrangler": "^4.35.0"
   },
