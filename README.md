@@ -35,11 +35,12 @@ The fastest way to get started is using our production deployment:
   }
 }
 ```
+
 ### Local Development
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/mcp-carbon-calculator.git
+git clone https://github.com/Programmer-RD-AI/mcp-carbon-calculator.git
 cd mcp-carbon-calculator
 
 # Install dependencies
@@ -58,10 +59,12 @@ npm run dev
 Calculate carbon emissions from electricity consumption across Australian states and territories.
 
 **Parameters:**
+
 - `kilo_watt_hours` (number): Electricity consumption in kWh
 - `state` (string): Australian state/territory
 
 **Supported States:**
+
 - New South Wales & ACT
 - Victoria
 - Queensland
@@ -72,12 +75,13 @@ Calculate carbon emissions from electricity consumption across Australian states
 - Northern Territory - DKIS (Darwin-Katherine Interconnected System)
 
 **Example Response:**
+
 ```
 Australian Electricity Emission Calculation:
 
 State: Victoria
 Electricity consumed: 350 kWh
-Scope 2 factor: 0.77 kg CO₂e/kWh  
+Scope 2 factor: 0.77 kg CO₂e/kWh
 Scope 3 factor: 0.09 kg CO₂e/kWh
 Total factor: 0.86 kg CO₂e/kWh
 
@@ -92,6 +96,7 @@ Context: This calculation uses Australian National Greenhouse Accounts (NGA) 202
 Calculate carbon emissions from gas consumption in metropolitan areas.
 
 **Parameters:**
+
 - `giga_joules` (number): Gas consumption in GJ
 - `gas_type` (string): Australian state/territory
 
@@ -100,7 +105,8 @@ Calculate carbon emissions from gas consumption in metropolitan areas.
 Calculate carbon emissions from gas consumption in non-metropolitan areas.
 
 **Parameters:**
-- `giga_joules` (number): Gas consumption in GJ  
+
+- `giga_joules` (number): Gas consumption in GJ
 - `gas_type` (string): Australian state/territory
 
 ## Architecture
@@ -129,7 +135,7 @@ src/
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Cloudflare account (for deployment)
 
@@ -189,11 +195,13 @@ wrangler deploy --env production
 All emission factors are sourced from:
 
 **Australian National Greenhouse Accounts (NGA) Factors 2024**
+
 - Published by: Department of Climate Change, Energy, the Environment and Water
 - Updated: December 2024
 - Scope: National greenhouse gas inventory reporting
 
 The emission factors include:
+
 - **Electricity**: Scope 2 and Scope 3 factors by state/territory
 - **Gas**: Scope 1 and Scope 3 factors for metro/non-metro areas
 

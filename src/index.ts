@@ -1,38 +1,42 @@
 /**
  * Australian Carbon Calculator MCP Server
- * 
+ *
  * A Model Context Protocol server for calculating carbon emissions using
  * official Australian National Greenhouse Accounts (NGA) 2024 data.
- * 
+ *
  * Deployed on Cloudflare Workers for global availability and low latency.
  */
 
-import { handleSSE } from './handlers/sse';
-import type { Env } from './types';
-import { handleCORSPreflight } from './utils/cors';
+import { handleSSE } from "./handlers/sse";
+import type { Env } from "./types";
+import { handleCORSPreflight } from "./utils/cors";
 
 /**
  * Main Cloudflare Worker handler
- * 
+ *
  * Routes incoming requests to appropriate handlers based on the URL path.
  */
 export default {
-  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    _ctx: ExecutionContext,
+  ): Promise<Response> {
     const url = new URL(request.url);
 
     // Handle CORS preflight requests
-    if (request.method === 'OPTIONS') {
+    if (request.method === "OPTIONS") {
       return handleCORSPreflight();
     }
     // MCP endpoint - handles both SSE and JSON-RPC
-    if (url.pathname === '/sse') {
+    if (url.pathname === "/sse") {
       return handleSSE(request, env);
     }
     // Root endpoint - information page
     return new Response(generateInfoPage(url), {
       headers: {
-        'Content-Type': 'text/html',
-        'Cache-Control': 'public, max-age=3600',
+        "Content-Type": "text/html",
+        "Cache-Control": "public, max-age=3600",
       },
     });
   },
@@ -97,7 +101,7 @@ function generateInfoPage(url: URL): string {
   published by the Department of Climate Change, Energy, the Environment and Water (DCCEEW).</p>
 
   <footer style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; color: #666;">
-    <p>Deployed on Cloudflare Workers • <a href="https://github.com/your-username/mcp-carbon-calculator">Source Code</a></p>
+    <p>Deployed on Cloudflare Workers • <a href="https://github.com/Programmer-RD-AI/mcp-carbon-calculator">Source Code</a></p>
   </footer>
 </body>
 </html>`;
