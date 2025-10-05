@@ -42,6 +42,18 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
         result = await callTool(name, args);
         break;
 
+      case 'resources/list':
+        result = {
+          resources: [],
+        };
+        break;
+
+      case 'prompts/list':
+        result = {
+          prompts: [],
+        };
+        break;
+
       default:
         throw new Error(`Unknown method: ${method}`);
     }

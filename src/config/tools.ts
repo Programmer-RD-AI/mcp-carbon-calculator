@@ -94,12 +94,12 @@ export const MCP_TOOLS = [
     inputSchema: {
       type: 'object',
       properties: {
-        kilo_watts: {
+        kilo_watt_hours: {
           type: 'number',
-          description: 'Amount of electricity consumed in kilo-watts',
+          description: 'Amount of electricity consumed in kilowatt-hours',
         },
       },
-      required: ['kilo_watts'],
+      required: ['kilo_watt_hours'],
     },
   },
 ] as const;

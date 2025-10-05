@@ -3,7 +3,7 @@ export interface Env {
 }
 
 export interface EmissionsEquivalenciesArgs {
-  kilo_watts: number;
+  kilo_watt_hours: number;
 }
 
 export interface ElectricityEmissionArgs {

@@ -1,7 +1,13 @@
 name = "mcp-carbon-calculator"
 main = "src/index.ts"
-compatibility_date = "2024-12-18"
+compatibility_date = "2025-09-15"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 ENVIRONMENT = "production"
+
+[observability.logs]
+enabled = true
+
+
+
