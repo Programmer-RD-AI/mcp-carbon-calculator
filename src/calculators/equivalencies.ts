@@ -20,12 +20,16 @@ export function calculateEmissionEquivalencies(
   args: EmissionsEquivalenciesArgs,
 ): MCPResponse {
   const { kilo_watts } = args;
+  // Convert kW to kgCO2 first
+  const kgCO2 = kilo_watts * EMISSIONS_EQUIVALENCIES.kgCO2PerKWh;
   return {
     content: [
       {
-        type: "json",
+        type: "text",
         text: JSON.stringify(
-          computeEquivalencies(kilo_watts, EMISSIONS_EQUIVALENCIES),
+          computeEquivalencies(kgCO2, EMISSIONS_EQUIVALENCIES),
+          null,
+          2
         ),
       },
     ],
