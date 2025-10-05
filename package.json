@@ -11,7 +11,7 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
-    "test": "echo \"No tests specified\" && exit 0",
+    "log": "npx wrangler tail",
     "prepare": "husky"
   },
   "keywords": [
