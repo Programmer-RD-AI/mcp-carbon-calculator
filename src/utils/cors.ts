@@ -1,6 +1,6 @@
 /**
  * CORS utility functions
- * 
+ *
  * Handles Cross-Origin Resource Sharing (CORS) headers for the MCP server
  */
 

@@ -1,1 +1,1 @@
-pnpm run deploy
+pnpm run lint && pnpm run deploy

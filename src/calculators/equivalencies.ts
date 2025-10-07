@@ -1,10 +1,11 @@
-import {
+import type {
   CarbonEquivalencyConfig,
   CarbonEquivalencyResult,
   EmissionsEquivalenciesArgs,
   MCPResponse,
-} from "../types";
-import { EMISSIONS_EQUIVALENCIES } from "../data/equivalencies";
+} from '../types';
+import { EMISSIONS_EQUIVALENCIES } from '../data/equivalencies';
+
 function computeEquivalencies(
   kgCO2: number,
   cfg: CarbonEquivalencyConfig,
@@ -25,11 +26,11 @@ export function calculateEmissionEquivalencies(
   return {
     content: [
       {
-        type: "text",
+        type: 'text',
         text: JSON.stringify(
           computeEquivalencies(kgCO2, EMISSIONS_EQUIVALENCIES),
           null,
-          2
+          2,
         ),
       },
     ],

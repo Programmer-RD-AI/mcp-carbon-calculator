@@ -1,7 +1,7 @@
 /**
  * MCP Tool Definitions
- * 
- * Defines the available tools and their schemas according to the 
+ *
+ * Defines the available tools and their schemas according to the
  * Model Context Protocol specification.
  */
 
@@ -21,13 +21,13 @@ export const MCP_TOOLS = [
           description: 'Australian state/territory',
           enum: [
             'New South Wales & ACT',
-            'Victoria', 
+            'Victoria',
             'Queensland',
             'South Australia',
             'Western Australia - SWIS',
             'Western Australia - NWIS',
             'Tasmania',
-            'Northern Territory - DKIS'
+            'Northern Territory - DKIS',
           ],
         },
       },
@@ -50,11 +50,11 @@ export const MCP_TOOLS = [
           enum: [
             'New South Wales & ACT',
             'Victoria',
-            'Queensland', 
+            'Queensland',
             'South Australia',
             'Western Australia',
             'Tasmania',
-            'Northern Territory'
+            'Northern Territory',
           ],
         },
       },
@@ -78,10 +78,10 @@ export const MCP_TOOLS = [
             'New South Wales & ACT',
             'Victoria',
             'Queensland',
-            'South Australia', 
+            'South Australia',
             'Western Australia',
             'Tasmania',
-            'Northern Territory'
+            'Northern Territory',
           ],
         },
       },

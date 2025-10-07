@@ -1,11 +1,11 @@
-import nunjucks from "nunjucks";
-import path from "path";
+import path from 'node:path';
+import nunjucks from 'nunjucks';
 
-export const renderTemplate = (url: String) => {
-  const env = nunjucks.configure(path.join(__dirname, "templates"), {
+export function renderTemplate(url: string) {
+  const env = nunjucks.configure(path.join(__dirname, 'templates'), {
     autoescape: true,
   });
-  return env.render("index.html", {
+  return env.render('index.html', {
     url,
   });
-};
+}

@@ -1,12 +1,12 @@
-import { EMISSION_FACTORS } from '../data/emissions';
 import type { ElectricityEmissionArgs, MCPResponse } from '../types';
+import { EMISSION_FACTORS } from '../data/emissions';
 
 /**
  * Calculate carbon emissions from electricity consumption
- * 
+ *
  * Uses Australian NGA 2024 emission factors to calculate both Scope 2
  * and Scope 3 emissions for electricity consumption across different states.
- * 
+ *
  * @param args - Electricity consumption arguments
  * @returns MCP-formatted response with emission calculation results
  */

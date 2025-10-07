@@ -7,10 +7,10 @@
  * Deployed on Cloudflare Workers for global availability and low latency.
  */
 
-import { handleSSE } from "./handlers/sse";
-import type { Env } from "./types";
-import { handleCORSPreflight } from "./utils/cors";
-import { renderTemplate } from "./utils/helper";
+import type { Env } from './types';
+import { handleSSE } from './handlers/sse';
+import { handleCORSPreflight } from './utils/cors';
+import { renderTemplate } from './utils/helper';
 
 /**
  * Main Cloudflare Worker handler
@@ -26,19 +26,20 @@ export default {
     const url = new URL(request.url);
 
     // Handle CORS preflight requests
-    if (request.method === "OPTIONS") {
+    if (request.method === 'OPTIONS') {
       return handleCORSPreflight();
     }
 
     // MCP endpoint - handles both SSE and JSON-RPC
-    if (url.pathname === "/sse") {
+    if (url.pathname === '/sse') {
       return handleSSE(request, env);
     }
+
     // Root endpoint - information page
     return new Response(generateInfoPage(url), {
       headers: {
-        "Content-Type": "text/html",
-        "Cache-Control": "public, max-age=3600",
+        'Content-Type': 'text/html',
+        'Cache-Control': 'public, max-age=3600',
       },
     });
   },

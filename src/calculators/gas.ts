@@ -1,9 +1,9 @@
-import { EMISSION_FACTORS } from '../data/emissions';
 import type { GasEmissionArgs, MCPResponse } from '../types';
+import { EMISSION_FACTORS } from '../data/emissions';
 
 /**
  * Calculate carbon emissions from gas consumption in metropolitan areas
- * 
+ *
  * @param args - Gas consumption arguments
  * @returns MCP-formatted response with emission calculation results
  */
@@ -46,8 +46,8 @@ Context: This calculation uses Australian NGA 2024 factors for metropolitan area
 
 /**
  * Calculate carbon emissions from gas consumption in non-metropolitan areas
- * 
- * @param args - Gas consumption arguments  
+ *
+ * @param args - Gas consumption arguments
  * @returns MCP-formatted response with emission calculation results
  */
 export function calculateGasEmissionNonMetro(args: GasEmissionArgs): MCPResponse {

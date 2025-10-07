@@ -1,18 +1,24 @@
-import type { JSONRPCRequest, JSONRPCResponse, Env } from '../types';
+import type { Env, JSONRPCRequest, JSONRPCResponse } from '../types';
 import { calculateElectricityEmission } from '../calculators/electricity';
-import { calculateGasEmissionMetro, calculateGasEmissionNonMetro } from '../calculators/gas';
-import { MCP_TOOLS } from '../config/tools';
 import { calculateEmissionEquivalencies } from '../calculators/equivalencies';
+import {
+  calculateGasEmissionMetro,
+  calculateGasEmissionNonMetro,
+} from '../calculators/gas';
+import { MCP_TOOLS } from '../config/tools';
 
 /**
  * Handle MCP JSON-RPC requests
- * 
- * Processes initialize, tools/list, and tools/call methods according to 
+ *
+ * Processes initialize, tools/list, and tools/call methods according to
  * the Model Context Protocol specification.
  */
-export async function handleJSONRPC(request: Request, _env: Env): Promise<Response> {
+export async function handleJSONRPC(
+  request: Request,
+  _env: Env,
+): Promise<Response> {
   try {
-    const body = await request.json() as JSONRPCRequest;
+    const body = (await request.json()) as JSONRPCRequest;
     const { method, params, id } = body;
 
     let result: any;
@@ -38,6 +44,7 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
         break;
 
       case 'tools/call':
+        // eslint-disable-next-line no-case-declarations
         const { name, arguments: args } = params;
         result = await callTool(name, args);
         break;
@@ -70,18 +77,17 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
         'Access-Control-Allow-Origin': '*',
       },
     });
-
-  } catch (error) {
+  }
+  catch (error) {
     console.error('MCP server error:', error);
 
     let requestId = null;
     try {
       const clonedRequest = request.clone();
-      const body = await clonedRequest.json() as JSONRPCRequest;
+      const body = (await clonedRequest.json()) as JSONRPCRequest;
       requestId = body.id;
-    } catch (e) {
-      // Ignore errors getting request ID
     }
+    catch { }
 
     const errorResponse: JSONRPCResponse = {
       jsonrpc: '2.0',
@@ -98,7 +104,8 @@ export async function handleJSONRPC(request: Request, _env: Env): Promise<Respon
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept, User-Agent, X-Requested-With',
+        'Access-Control-Allow-Headers':
+          'Content-Type, Authorization, Accept, User-Agent, X-Requested-With',
       },
     });
   }

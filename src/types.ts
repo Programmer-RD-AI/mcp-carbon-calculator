@@ -40,24 +40,24 @@ export interface JSONRPCResponse {
   };
 }
 
-export type AustralianState =
-  | 'New South Wales & ACT'
-  | 'Victoria'
-  | 'Queensland'
-  | 'South Australia'
-  | 'Western Australia - SWIS'
-  | 'Western Australia - NWIS'
-  | 'Tasmania'
-  | 'Northern Territory - DKIS';
+export type AustralianState
+  = | 'New South Wales & ACT'
+    | 'Victoria'
+    | 'Queensland'
+    | 'South Australia'
+    | 'Western Australia - SWIS'
+    | 'Western Australia - NWIS'
+    | 'Tasmania'
+    | 'Northern Territory - DKIS';
 
-export type GasState =
-  | 'New South Wales & ACT'
-  | 'Victoria'
-  | 'Queensland'
-  | 'South Australia'
-  | 'Western Australia'
-  | 'Tasmania'
-  | 'Northern Territory';
+export type GasState
+  = | 'New South Wales & ACT'
+    | 'Victoria'
+    | 'Queensland'
+    | 'South Australia'
+    | 'Western Australia'
+    | 'Tasmania'
+    | 'Northern Territory';
 
 export interface CarbonEquivalencyConfig {
   kgCO2PerKWh: number;
